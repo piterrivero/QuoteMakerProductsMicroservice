@@ -20,7 +20,7 @@
 		<start-class>com.discs.groups.GroupsServerApplication</start-class>
 		
 		<!--set this to your docker acct name-->
-		<docker.image.prefix>quoteMaker</docker.image.prefix>
+		<docker.image.prefix>quote_maker</docker.image.prefix>
 		<!--Set to name of project-->
 		<docker.image.name>products</docker.image.name>
 	</properties>

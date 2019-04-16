@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import com.quotemaker.products.exceptions.SequenceException;
 import com.quotemaker.products.model.SequenceId;
 
 @Repository
@@ -16,8 +15,10 @@ public class SequenceDaoImpl implements SequenceDao {
 
 	@Autowired
 	private MongoOperations mongoOperation;
+	@Autowired
+	private SequenceRepository sequenceRepository;
 
-	public long getNextSequenceId(String key) throws SequenceException {
+	public long getNextSequenceId(String key) {
 		
 	  //get sequence id
 	  Query query = new Query(Criteria.where("_id").is(key));
@@ -33,10 +34,11 @@ public class SequenceDaoImpl implements SequenceDao {
 	  //this is the magic happened.
 	  SequenceId seqId = mongoOperation.findAndModify(query, update, options, SequenceId.class);
 
-	  //if no id, throws SequenceException
-          //optional, just a way to tell user when the sequence id is failed to generate.
 	  if (seqId == null) {
-		throw new SequenceException("Unable to get sequence id for key : " + key);
+		  seqId = new SequenceId();
+		  seqId.setId(key);
+		  seqId.setSeq(1L);
+		  sequenceRepository.save(seqId);
 	  }
 
 	  return seqId.getSeq();
