@@ -2,8 +2,10 @@ package com.quotemaker.products.model.response;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.quotemaker.products.model.Products;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductGeneralResponse {
 
 	private Products product;
