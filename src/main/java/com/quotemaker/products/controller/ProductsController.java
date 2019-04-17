@@ -91,7 +91,7 @@ public class ProductsController extends ErrorCodes {
 		return productGeneralResponse;
 	}
 	
-	@RequestMapping(value = "/products/edit", method = RequestMethod.PATCH)
+	@RequestMapping(value = "/products/edit", method = RequestMethod.POST)
 	public ProductGeneralResponse edit(@RequestBody(required=true) Products products){
 		
 		ProductGeneralResponse productGeneralResponse = new ProductGeneralResponse();
